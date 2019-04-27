@@ -4,12 +4,16 @@
    [reagent.core :as r]))
 
 (def use-state js/window.React.useState)
+(def use-effect js/window.React.useEffect)
 
 (defn get-app-element []
   (gdom/getElement "app"))
 
 (defn fun-ui []
-  (let [[n setN] (use-state 0)]
+  (let [[n setN] (use-state 0)
+        _ (use-effect (fn []
+                        (set! (.-title js/document) (str "You clicked " n " times"))
+                        js/undefined))]
     (r/as-element
      [:div
       [:p "You clicked " n " times"]
