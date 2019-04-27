@@ -1,16 +1,19 @@
 (ns ^:figwheel-hooks hooks.core
   (:require
    [goog.dom :as gdom]
-   [reagent.core :as reagent :refer [atom]]))
+   [reagent.core :as r]))
 
 (defn get-app-element []
   (gdom/getElement "app"))
 
+(defn fun-ui []
+  (r/as-element [:div "from reagent"]))
+
 (defn main-ui []
-  [:div "hello world"])
+  [:> fun-ui])
 
 (defn mount [el]
-  (reagent/render-component [main-ui] el))
+  (r/render-component [main-ui] el))
 
 (defn ^:export init []
   (when-let [el (get-app-element)]
